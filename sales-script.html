@@ -1,0 +1,1697 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Скрипт продаж — 15-й Конгресс «Управление частной клиникой»</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:   #0D1B2A;
+    --navy2:  #152337;
+    --navy3:  #1E3050;
+    --teal:   #00B4D8;
+    --teal2:  #0096B7;
+    --amber:  #F4A261;
+    --amber2: #E07B3A;
+    --white:  #F7F9FC;
+    --muted:  #8A9BB0;
+    --card:   #162840;
+    --line:   #1E3050;
+    --text:   #D6E4F0;
+    --label:  #5B8DB8;
+    --green:  #48CAB2;
+    --red:    #E05C6A;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--navy);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+  /* ── TOP BAR ── */
+  .topbar {
+    background: var(--navy2);
+    border-bottom: 1px solid var(--line);
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .topbar-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.08em;
+    color: var(--teal);
+  }
+  .topbar-title {
+    font-size: 0.78rem;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .topbar-badge {
+    background: var(--teal);
+    color: var(--navy);
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* ── LAYOUT ── */
+  .layout {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+    gap: 32px;
+    align-items: start;
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    position: sticky;
+    top: 70px;
+    padding: 28px 0 0;
+  }
+  .sidebar-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--label);
+    margin-bottom: 16px;
+    padding-left: 4px;
+  }
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 9px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.15s;
+    margin-bottom: 2px;
+  }
+  .nav-item:hover { background: var(--navy3); }
+  .nav-item.active { background: var(--navy3); }
+  .nav-item.active .nav-num { color: var(--teal); border-color: var(--teal); }
+  .nav-item.active .nav-text { color: var(--white); }
+  .nav-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.85rem;
+    color: var(--label);
+    border: 1px solid var(--line);
+    width: 26px;
+    height: 26px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    letter-spacing: 0.04em;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .nav-text {
+    font-size: 0.78rem;
+    color: var(--muted);
+    font-weight: 500;
+    transition: color 0.15s;
+  }
+  .sidebar-divider {
+    border: none;
+    border-top: 1px solid var(--line);
+    margin: 16px 0;
+  }
+  .cheat-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--amber);
+    font-size: 0.78rem;
+    font-weight: 600;
+    transition: background 0.15s;
+  }
+  .cheat-link:hover { background: var(--navy3); }
+  .cheat-link svg { flex-shrink: 0; }
+
+  /* ── MAIN ── */
+  .main { padding-top: 28px; }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, var(--navy3) 0%, var(--navy2) 100%);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 40px 36px;
+    margin-bottom: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 240px; height: 240px;
+    background: radial-gradient(circle, rgba(0,180,216,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-tag {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--teal);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.6rem;
+    letter-spacing: 0.04em;
+    color: var(--white);
+    line-height: 1.05;
+    margin-bottom: 14px;
+  }
+  .hero-title span { color: var(--teal); }
+  .hero-desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+    max-width: 520px;
+    line-height: 1.7;
+  }
+  .hero-stats {
+    display: flex;
+    gap: 28px;
+    margin-top: 28px;
+    flex-wrap: wrap;
+  }
+  .stat {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.7rem;
+    color: var(--teal);
+    letter-spacing: 0.03em;
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.7rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* SECTION */
+  .section {
+    margin-bottom: 24px;
+    border-radius: 14px;
+    border: 1px solid var(--line);
+    overflow: hidden;
+    background: var(--navy2);
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s;
+  }
+  .section-header:hover { background: var(--navy3); }
+  .section-header.open { background: var(--navy3); border-bottom: 1px solid var(--line); }
+  .step-badge {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    background: var(--teal);
+    color: var(--navy);
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    letter-spacing: 0.04em;
+  }
+  .step-badge.amber { background: var(--amber); }
+  .step-badge.green { background: var(--green); }
+  .section-title {
+    flex: 1;
+  }
+  .section-title h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.15rem;
+    letter-spacing: 0.06em;
+    color: var(--white);
+    line-height: 1.1;
+  }
+  .section-title p {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+  .chevron {
+    color: var(--muted);
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  .chevron.open { transform: rotate(180deg); }
+
+  .section-body {
+    display: none;
+    padding: 24px;
+  }
+  .section-body.open { display: block; }
+
+  /* SCRIPT BOX */
+  .script-box {
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 12px 0;
+    border: 1px solid var(--line);
+  }
+  .script-label {
+    padding: 7px 16px;
+    font-size: 0.67rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .script-label.manager { background: var(--teal2); color: var(--navy); }
+  .script-label.pause { background: var(--navy3); color: var(--muted); }
+  .script-label.objection { background: var(--amber2); color: var(--navy); }
+  .script-text {
+    padding: 14px 16px;
+    font-size: 0.88rem;
+    color: var(--white);
+    line-height: 1.7;
+    background: var(--card);
+    font-style: italic;
+  }
+  .script-text em { color: var(--teal); font-style: normal; font-weight: 600; }
+  .script-text strong { color: var(--amber); font-style: normal; }
+
+  /* QUESTION LIST */
+  .q-list { list-style: none; display: flex; flex-direction: column; gap: 8px; margin: 12px 0; }
+  .q-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 0.86rem;
+    color: var(--text);
+    line-height: 1.55;
+  }
+  .q-icon { color: var(--teal); flex-shrink: 0; margin-top: 1px; font-size: 0.9rem; }
+
+  /* TABS */
+  .tabs { margin-top: 4px; }
+  .tab-nav {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+  }
+  .tab-btn {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 6px 13px;
+    border-radius: 6px;
+    border: 1px solid var(--line);
+    background: var(--card);
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: 'Inter', sans-serif;
+  }
+  .tab-btn:hover { border-color: var(--teal); color: var(--teal); }
+  .tab-btn.active { background: var(--teal); border-color: var(--teal); color: var(--navy); }
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* INFO GRID */
+  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+  .info-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 16px;
+  }
+  .info-card-label {
+    font-size: 0.67rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--label);
+    margin-bottom: 6px;
+    font-weight: 700;
+  }
+  .info-card-text { font-size: 0.84rem; color: var(--text); line-height: 1.5; }
+
+  /* ARG TABLE */
+  .arg-table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+  .arg-table th {
+    font-size: 0.67rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--label);
+    padding: 8px 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--line);
+    font-weight: 700;
+  }
+  .arg-table td {
+    padding: 12px 12px;
+    font-size: 0.84rem;
+    vertical-align: top;
+    border-bottom: 1px solid var(--line);
+    line-height: 1.55;
+  }
+  .arg-table td:first-child { color: var(--teal); width: 38%; font-weight: 500; }
+  .arg-table td:last-child { color: var(--text); }
+  .arg-table tr:last-child td { border-bottom: none; }
+  .arg-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+  /* FOLLOWUP TABLE */
+  .follow-table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+  .follow-table td {
+    padding: 12px 14px;
+    font-size: 0.84rem;
+    vertical-align: top;
+    border-bottom: 1px solid var(--line);
+    line-height: 1.55;
+  }
+  .follow-table tr:last-child td { border-bottom: none; }
+  .follow-table .day-col {
+    white-space: nowrap;
+    width: 160px;
+    font-weight: 700;
+    color: var(--teal);
+    font-size: 0.8rem;
+  }
+  .follow-table .action-col { color: var(--text); }
+  .follow-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+  /* CHEAT SHEET */
+  .cheat-section {
+    background: linear-gradient(135deg, #1A0D00 0%, #261200 100%);
+    border: 1px solid var(--amber2);
+    border-radius: 14px;
+    padding: 28px 28px;
+    margin-bottom: 24px;
+  }
+  .cheat-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 0.06em;
+    color: var(--amber);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .cheat-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+  .cheat-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 0.86rem;
+    color: #E8C9A0;
+    line-height: 1.55;
+  }
+  .cheat-item::before {
+    content: '→';
+    color: var(--amber);
+    flex-shrink: 0;
+    font-weight: 700;
+    margin-top: 1px;
+  }
+  .cheat-item strong { color: var(--amber); }
+
+  /* MISC */
+  .note {
+    background: rgba(0,180,216,0.07);
+    border-left: 3px solid var(--teal);
+    border-radius: 0 8px 8px 0;
+    padding: 10px 14px;
+    font-size: 0.82rem;
+    color: var(--muted);
+    margin: 10px 0;
+    line-height: 1.6;
+  }
+  .goal-tag {
+    display: inline-block;
+    background: rgba(0,180,216,0.12);
+    border: 1px solid rgba(0,180,216,0.3);
+    color: var(--teal);
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-bottom: 14px;
+  }
+  .section-spacer { height: 10px; }
+
+  /* RESPONSIVE */
+  @media (max-width: 760px) {
+    .layout { grid-template-columns: 1fr; padding: 0 16px 60px; }
+    .sidebar { display: none; }
+    .hero { padding: 28px 22px; }
+    .hero-title { font-size: 1.9rem; }
+    .info-grid { grid-template-columns: 1fr; }
+    .hero-stats { gap: 18px; }
+    .topbar-title { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<nav class="topbar">
+  <div class="topbar-logo">Конгресс ЧК · 15</div>
+  <div class="topbar-title">Скрипт продаж / Sales Script</div>
+  <div class="topbar-badge">2026</div>
+</nav>
+
+<!-- LAYOUT -->
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-label">Навигация по скрипту</div>
+
+    <a href="#step0" class="nav-item" data-section="step0">
+      <div class="nav-num" style="background:rgba(244,162,97,0.15);border-color:var(--amber);color:var(--amber)">0</div>
+      <div class="nav-text" style="color:var(--amber)">Входящий лид</div>
+    </a>
+    <a href="#step1" class="nav-item" data-section="step1">
+      <div class="nav-num">1</div>
+      <div class="nav-text">Открытие</div>
+    </a>
+    <a href="#step2" class="nav-item" data-section="step2">
+      <div class="nav-num">2</div>
+      <div class="nav-text">Потребность</div>
+    </a>
+    <a href="#step3" class="nav-item" data-section="step3">
+      <div class="nav-num">3</div>
+      <div class="nav-text">Презентация</div>
+    </a>
+    <a href="#step4" class="nav-item" data-section="step4">
+      <div class="nav-num">4</div>
+      <div class="nav-text">Аргументы</div>
+    </a>
+    <a href="#step5" class="nav-item" data-section="step5">
+      <div class="nav-num">5</div>
+      <div class="nav-text">Возражения</div>
+    </a>
+    <a href="#step6" class="nav-item" data-section="step6">
+      <div class="nav-num">6</div>
+      <div class="nav-text">Закрытие</div>
+    </a>
+    <a href="#step7" class="nav-item" data-section="step7">
+      <div class="nav-num">7</div>
+      <div class="nav-text">Follow-up</div>
+    </a>
+
+    <hr class="sidebar-divider">
+
+    <a href="#speakers" class="nav-item" data-section="speakers">
+      <div class="nav-num" style="background:rgba(255,255,255,0.08);border-color:var(--muted);color:var(--muted)">i</div>
+      <div class="nav-text">Спикеры</div>
+    </a>
+    <a href="#tech-script" class="nav-item" data-section="tech-script">
+      <div class="nav-num" style="background:rgba(72,202,178,0.15);border-color:var(--green);color:var(--green)">★</div>
+      <div class="nav-text" style="color:var(--green)">Техкомпания</div>
+    </a>
+    <a href="#partner-script" class="nav-item" data-section="partner-script">
+      <div class="nav-num" style="background:rgba(244,162,97,0.15);border-color:var(--amber);color:var(--amber)">♦</div>
+      <div class="nav-text" style="color:var(--amber)">Партнёры</div>
+    </a>
+
+    <hr class="sidebar-divider">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
+      Шпаргалка
+    </a>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-tag">Инструмент для менеджера · Всероссийский конгресс «Управление частной клиникой»</div>
+      <div class="hero-title">Скрипт<br><span>продаж</span></div>
+      <div class="hero-desc">
+        «Управление частной клиникой в России» — ключевая встреча собственников, главврачей и топ-менеджеров медицинского бизнеса.<br>
+        <strong style="color:var(--teal)">26 июня 2026 · Москва · Гостиница Ленинградская</strong>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-num">1,78<span style="font-size:1rem">трлн</span></div>
+          <div class="stat-label">Рынок частной медицины РФ</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">14,4%</div>
+          <div class="stat-label">Медицинская инфляция</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">26 июня</div>
+          <div class="stat-label">Дата проведения</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">15+</div>
+          <div class="stat-label">Спикеров-экспертов отрасли</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- О МЕРОПРИЯТИИ -->
+    <div class="info-grid" style="margin-bottom:8px">
+      <div class="info-card">
+        <div class="info-card-label">📅 Дата и место</div>
+        <div class="info-card-text"><strong style="color:var(--teal)">26 июня 2026</strong> · Москва, Гостиница Ленинградская</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-label">📦 Пакеты участия</div>
+        <div class="info-card-text">Лайт · Топ-менеджер · Клиника (2 делегата) · Клиника (3 делегата)</div>
+      </div>
+    </div>
+
+    <!-- ДЛЯ КОГО — роли с болями -->
+    <div style="margin-bottom:24px">
+      <div style="font-size:0.67rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--label);margin-bottom:10px;font-weight:700">Для кого — боль по роли</div>
+      <div class="info-grid">
+        <div class="info-card">
+          <div class="info-card-label">👤 Собственники</div>
+          <div class="info-card-text">В какой профиль вкладывать, чтобы получить максимальную ROI?</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-label">⚙️ Управляющие</div>
+          <div class="info-card-text">Как пересобрать операционные процессы под нового пациента 2026?</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-label">🩺 Главврачи</div>
+          <div class="info-card-text">Как удержать «звёздных» врачей без разрушения команды?</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-label">📊 Финдиректора</div>
+          <div class="info-card-text">Как выстроить P&amp;L клиники с рентабельностью выше рынка и избежать штрафов?</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-label">📣 Маркетинг</div>
+          <div class="info-card-text">Как вернуть 30% потерянных пациентов после 20:00?</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-label">👥 HR-директора</div>
+          <div class="info-card-text">Где искать врачей, если выпускников медвузов на частном рынке больше нет?</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- КТО БУДЕТ В ЗАЛЕ -->
+    <div style="margin-bottom:24px;background:var(--navy2);border:1px solid var(--line);border-radius:14px;padding:20px 24px">
+      <div style="font-size:0.67rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--label);margin-bottom:12px;font-weight:700">Кто будет в зале</div>
+      <p style="font-size:0.86rem;color:var(--text);line-height:1.6;margin-bottom:12px">На одной площадке — руководители компаний, формирующих отрасль частной медицины в России. <strong style="color:var(--teal)">Медскан, Доктор Плюс, МИА.РФ, Mental Unit, Клиника Фомина</strong> и ещё <strong style="color:var(--teal)">30+ медицинских центров, сетей клиник и медсервисов.</strong></p>
+      <p style="font-size:0.82rem;color:var(--muted);line-height:1.6">💬 Используйте в разговоре: <em>«На конгрессе будут коллеги из ведущих федеральных и региональных сетей — это редкая возможность сравнить свой опыт с лидерами рынка напрямую.»</em></p>
+    </div>
+
+    <!-- ── ШАГ 0 ── -->
+    <div class="section" id="step0">
+      <div class="section-header open" onclick="toggleSection(this)">
+        <div class="step-badge amber">00</div>
+        <div class="section-title">
+          <h2>Входящий лид — фиксация источника</h2>
+          <p>До начала разговора: откуда пришёл клиент?</p>
+        </div>
+        <svg class="chevron open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="section-body open">
+        <div class="goal-tag">Цель шага</div>
+        <p style="font-size:0.86rem;color:var(--muted);margin-bottom:16px">
+          Перед звонком проверь карточку лида — определи источник. Это влияет на контекст открытия разговора и понимание, что уже знает клиент.
+        </p>
+
+        <!-- SOURCE CARDS -->
+        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px">
+
+          <!-- Регформа -->
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden">
+            <div style="background:var(--teal2);padding:7px 16px;font-size:0.67rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--navy)">
+              📋 Источник: Регистрационная форма (сайт)
+            </div>
+            <div style="padding:14px 16px">
+              <p style="font-size:0.78rem;color:var(--muted);margin-bottom:10px">Клиент сам заполнил форму на clinic-forum.ru. Уже проявил интерес — важно не потерять тепло.</p>
+              <div class="script-box" style="margin:0">
+                <div class="script-label manager">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                  [Имя менеджера]
+                </div>
+                <div class="script-text">
+                  Здравствуйте, <em>[Имя]</em>! Меня зовут <em>[Имя менеджера]</em>, я из команды конгресса «Управление частной клиникой», организатор — Империя Форум. Вижу вашу заполненную регистрационную форму — простите, что не связались сразу. Мне очень важно рассказать вам подробнее о событии, на которое вы зарегистрировались. Есть сейчас пара минут?
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Свой ТГ -->
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden">
+            <div style="background:#2B5278;padding:7px 16px;font-size:0.67rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#fff">
+              ✈️ Источник: Telegram-канал Империя Форум (свой)
+            </div>
+            <div style="padding:14px 16px">
+              <p style="font-size:0.78rem;color:var(--muted);margin-bottom:10px">Клиент подписан на наш канал или перешёл по ссылке из поста. Знает о событии, возможно видел анонсы спикеров.</p>
+              <div class="script-box" style="margin:0">
+                <div class="script-label manager">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                  [Имя менеджера]
+                </div>
+                <div class="script-text">
+                  Здравствуйте, <em>[Имя]</em>! Меня зовут <em>[Имя менеджера]</em>, команда конгресса «Управление частной клиникой». Вы оставили заявку через наш Telegram-канал — рада, что обратили внимание. Хочу рассказать подробнее о программе и ответить на вопросы. Удобно сейчас поговорить пару минут?
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ТГ спикера -->
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden">
+            <div style="background:#1D4A6E;padding:7px 16px;font-size:0.67rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#fff">
+              ✈️ Источник: Telegram-канал спикера конгресса
+            </div>
+            <div style="padding:14px 16px">
+              <p style="font-size:0.78rem;color:var(--muted);margin-bottom:10px">Клиент пришёл через канал одного из спикеров. Уточни в карточке — кого именно. Это контекст для разговора: клиенту интересен прежде всего этот спикер.</p>
+              <div class="script-box" style="margin:0">
+                <div class="script-label manager">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                  [Имя менеджера]
+                </div>
+                <div class="script-text">
+                  Здравствуйте, <em>[Имя]</em>! Меня зовут <em>[Имя менеджера]</em>, организатор конгресса «Управление частной клиникой». Вы оставили заявку через канал <strong>[Имя спикера]</strong> — он выступит у нас как один из ключевых спикеров. Хочу рассказать, что ещё вас ждёт на конгрессе помимо его выступления. Есть пара минут?
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Партнёрский ТГ -->
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden">
+            <div style="background:#1A3D5C;padding:7px 16px;font-size:0.67rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#fff">
+              ✈️ Источник: Партнёрский Telegram-канал
+            </div>
+            <div style="padding:14px 16px">
+              <p style="font-size:0.78rem;color:var(--muted);margin-bottom:10px">Клиент пришёл через канал партнёра — не спикера, не наш. Уровень осведомлённости может быть минимальным, нужно представить событие с нуля.</p>
+              <div class="script-box" style="margin:0">
+                <div class="script-label manager">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                  [Имя менеджера]
+                </div>
+                <div class="script-text">
+                  Здравствуйте, <em>[Имя]</em>! Меня зовут <em>[Имя менеджера]</em>, я из команды конгресса «Управление частной клиникой» — организатор Империя Форум. Вы оставили заявку через канал наших партнёров. Хочу познакомить вас с конгрессом подробнее и ответить на вопросы. Удобно сейчас буквально пару минут?
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Рассылка -->
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden">
+            <div style="background:#3D2B00;padding:7px 16px;font-size:0.67rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber)">
+              📧 Источник: Email-рассылка
+            </div>
+            <div style="padding:14px 16px">
+              <p style="font-size:0.78rem;color:var(--muted);margin-bottom:10px">
+                Перед звонком уточни в карточке: <strong style="color:var(--amber)">номер письма и тема</strong> — это даёт понять, какой интерес зацепил клиента. Например: письмо №3 «Кадровый кризис в частных клиниках» → клиент, скорее всего, болеет кадрами.
+              </p>
+              <div class="script-box" style="margin:0">
+                <div class="script-label manager">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                  [Имя менеджера]
+                </div>
+                <div class="script-text">
+                  Здравствуйте, <em>[Имя]</em>! Меня зовут <em>[Имя менеджера]</em>, команда конгресса «Управление частной клиникой». Вы оставили заявку после нашей рассылки — письмо было про <strong>[тема письма]</strong>. Именно эта тема будет одной из ключевых на конгрессе — хочу рассказать подробнее. Есть пара минут?
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Источник неизвестен -->
+          <div style="background:var(--card);border:1px solid rgba(138,155,176,0.3);border-radius:10px;overflow:hidden">
+            <div style="background:rgba(138,155,176,0.15);padding:7px 16px;font-size:0.67rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted)">
+              ❓ Источник неизвестен — спрашиваем у клиента
+            </div>
+            <div style="padding:14px 16px">
+              <div class="script-box" style="margin:0">
+                <div class="script-label manager">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                  [Имя менеджера]
+                </div>
+                <div class="script-text">
+                  Здравствуйте, <em>[Имя]</em>! Меня зовут <em>[Имя менеджера]</em>, команда конгресса «Управление частной клиникой». Вижу, что вы оставили заявку — подскажите, где именно узнали о нас? Хочу понять контекст, чтобы рассказать именно то, что будет вам полезно.
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="note">💡 После того как выяснили источник и получили «да, есть пара минут» — переходи к Шагу 1: Открытие.</div>
+      </div>
+    </div>
+
+    <!-- ── ШАГ 1 ── -->
+    <div class="section" id="step1">
+      <div class="section-header open" onclick="toggleSection(this)">
+        <div class="step-badge">01</div>
+        <div class="section-title">
+          <h2>Открытие разговора</h2>
+          <p>Создать контакт и получить согласие говорить</p>
+        </div>
+        <svg class="chevron open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="section-body open">
+        <div class="goal-tag">Цель шага</div>
+        <p style="font-size:0.86rem;color:var(--muted);margin-bottom:16px">Установить доверительный контакт. Не продавать — просто получить разрешение на разговор.</p>
+
+        <div class="script-box">
+          <div class="script-label manager">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            Менеджер
+          </div>
+          <div class="script-text">
+            Добрый день, <em>[Имя]</em>! Меня зовут <em>[Имя менеджера]</em>, я из команды конгресса «Управление частной клиникой». Вы занимаетесь <em>[должность / клиника]</em>?
+          </div>
+        </div>
+
+        <div class="script-box">
+          <div class="script-label pause">⏸ Пауза — ждем ответа</div>
+        </div>
+
+        <div class="script-box">
+          <div class="script-label manager">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            Менеджер
+          </div>
+          <div class="script-text">
+            Отлично. Звоню, чтобы рассказать о нашем юбилейном <strong>15-м конгрессе</strong> — это ключевое ежегодное событие для руководителей частных клиник. Уделите буквально <em>2 минуты</em>?
+          </div>
+        </div>
+
+        <div class="note">💡 Не спрашивайте «вам удобно говорить?» — это даёт повод отказать. Сразу переходите к ценности.</div>
+      </div>
+    </div>
+
+    <!-- ── ШАГ 2 ── -->
+    <div class="section" id="step2">
+      <div class="section-header" onclick="toggleSection(this)">
+        <div class="step-badge">02</div>
+        <div class="section-title">
+          <h2>Выявление потребности</h2>
+          <p>Найти главную боль — под неё адаптировать презентацию</p>
+        </div>
+        <svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="section-body">
+        <div class="goal-tag">Цель шага</div>
+        <p style="font-size:0.86rem;color:var(--muted);margin-bottom:16px">Задайте 1–2 вопроса. Услышали боль — сразу переходите к ответу-мостику в презентацию. Не задавайте все вопросы подряд.</p>
+
+        <div style="display:flex;flex-direction:column;gap:12px">
+
+          <!-- Q1 -->
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden">
+            <div style="padding:12px 16px;border-bottom:1px solid var(--line)">
+              <span style="font-size:0.67rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--label);font-weight:700">Вопрос</span>
+              <p style="font-size:0.88rem;color:var(--teal);margin-top:4px;font-weight:500">Как у вас сейчас с заполняемостью? Пациенты записываются сами или приходится бороться за каждого?</p>
+            </div>
+            <div class="script-box" style="margin:12px 16px 12px">
+              <div class="script-label manager">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                Если вопрос привлечения актуален →
+              </div>
+              <div class="script-text">
+                Тогда рекомендую обратить внимание на финансовую сессию конгресса. Будем разбирать, как увеличить пациентопоток в условиях высокой конкуренции, почему клиники теряют до <em>30% обращений через сайт</em>, как правильно работать с ОМС и ДМС и какие инструменты реально помогают увеличивать выручку. Своим опытом поделятся руководители клиник с оборотом <strong>более 2 млрд рублей</strong> и собственники успешных медицинских проектов.
+              </div>
+            </div>
+          </div>
+
+          <!-- Q2 -->
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden">
+            <div style="padding:12px 16px;border-bottom:1px solid var(--line)">
+              <span style="font-size:0.67rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--label);font-weight:700">Вопрос</span>
+              <p style="font-size:0.88rem;color:var(--teal);margin-top:4px;font-weight:500">Что сейчас давит сильнее — кадры, себестоимость или юридические риски?</p>
+            </div>
+            <div class="script-box" style="margin:12px 16px 12px">
+              <div class="script-label manager">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                Ответ →
+              </div>
+              <div class="script-text">
+                На самом деле именно этим трём вопросам посвящены ключевые блоки конгресса. Отдельно — про <em>финансовую устойчивость клиники</em>, отдельно — про <em>кадровый дефицит</em> и отдельно — про <em>новые требования законодательства, ЕГИСЗ и проверки</em>. Задача программы — дать руководителям практические решения по самым острым проблемам частной медицины.
+              </div>
+            </div>
+          </div>
+
+          <!-- Q3 -->
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden">
+            <div style="padding:12px 16px;border-bottom:1px solid var(--line)">
+              <span style="font-size:0.67rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--label);font-weight:700">Вопрос</span>
+              <p style="font-size:0.88rem;color:var(--teal);margin-top:4px;font-weight:500">Сталкивались ли уже с проверками по ЕГИСЗ или претензиями по персональным данным?</p>
+            </div>
+            <div class="script-box" style="margin:12px 16px 12px">
+              <div class="script-label manager">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                Если да или «пока нет, но беспокоит» →
+              </div>
+              <div class="script-text">
+                Тогда вам может быть особенно полезна юридическая сессия. Будут выступать медицинский адвокат <em>Ирина Гриценко</em>, эксперт ЕГИСЗ <em>Дария Вольникова</em> и <em>Светлана Саяпина</em>. Разберут новые требования Минздрава, работу с персональными данными, проверки Росздравнадзора, <strong>пациентский экстремизм</strong> и реальные кейсы защиты клиник.
+              </div>
+            </div>
+          </div>
+
+          <!-- Q4 -->
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden">
+            <div style="padding:12px 16px;border-bottom:1px solid var(--line)">
+              <span style="font-size:0.67rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--label);font-weight:700">Вопрос</span>
+              <p style="font-size:0.88rem;color:var(--teal);margin-top:4px;font-weight:500">Смотрели ли на ИИ-решения для клиники — или пока непонятно, что реально работает, а что просто маркетинг?</p>
+            </div>
+            <div class="script-box" style="margin:12px 16px 12px">
+              <div class="script-label manager">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                Ответ →
+              </div>
+              <div class="script-text">
+                Этой теме посвящена отдельная сессия по AI-трансформации клиники. Будем разбирать <em>лицензированные ИИ-решения</em>, которые уже работают в российских клиниках, реальные кейсы внедрения, экономический эффект, интеграцию с МИС и <strong>ограничения, которые важно учитывать руководителю</strong> — чтобы не купить красивую обёртку.
+              </div>
+            </div>
+          </div>
+
+          <!-- Q5 -->
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden">
+            <div style="padding:12px 16px;border-bottom:1px solid var(--line)">
+              <span style="font-size:0.67rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--label);font-weight:700">Вопрос</span>
+              <p style="font-size:0.88rem;color:var(--teal);margin-top:4px;font-weight:500">Как решаете кадровый вопрос сейчас — с марта выпускников медвузов на частном рынке фактически нет?</p>
+            </div>
+            <div class="script-box" style="margin:12px 16px 12px">
+              <div class="script-label manager">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                Ответ →
+              </div>
+              <div class="script-text">
+                Это одна из самых обсуждаемых тем конгресса. Будем говорить о том, где сегодня искать врачей, как выстроить систему удержания персонала, карьерные треки, мотивацию и корпоративную культуру. Среди спикеров — <em>Татьяна Чуяшова</em> (НАУЗ), представители <em>Медскан, Клиники Фомина</em> и руководители успешных региональных медицинских центров. Отдельно разберут ситуацию, когда <strong>ключевой или «звёздный» врач становится источником конфликта</strong> в коллективе.
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="note" style="margin-top:14px">💡 Не задавайте больше двух вопросов подряд. Услышали ключевое слово — сразу давайте мостик и переходите к Шагу 3.</div>
+      </div>
+    </div>
+
+    <!-- ── ШАГ 3 ── -->
+    <div class="section" id="step3">
+      <div class="section-header" onclick="toggleSection(this)">
+        <div class="step-badge">03</div>
+        <div class="section-title">
+          <h2>Презентация программы</h2>
+          <p>Выберите блок под боль клиента — не читайте всё подряд</p>
+        </div>
+        <svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="section-body">
+        <div class="goal-tag">Цель шага</div>
+        <p style="font-size:0.86rem;color:var(--muted);margin-bottom:16px">Говорите только о том, что резонирует с болью клиента. Один блок — 30–40 секунд.</p>
+
+        <div class="tabs">
+          <div class="tab-nav">
+            <button class="tab-btn active" onclick="switchTab(this, 'tab-finance')">💰 Финансы</button>
+            <button class="tab-btn" onclick="switchTab(this, 'tab-hr')">👨‍⚕️ Кадры</button>
+            <button class="tab-btn" onclick="switchTab(this, 'tab-legal')">⚖️ Право</button>
+            <button class="tab-btn" onclick="switchTab(this, 'tab-ai')">🤖 AI</button>
+            <button class="tab-btn" onclick="switchTab(this, 'tab-comm')">📣 Маркетинг</button>
+          </div>
+
+          <div class="tab-content active" id="tab-finance">
+            <div class="script-box">
+              <div class="script-label manager">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                Блок: Финансовая стратегия
+              </div>
+              <div class="script-text">
+                На конгрессе отдельная сессия по финансам — как выйти на рентабельность <em>15–20%</em>, когда ФОТ уже съедает 50% себестоимости. Модератор — <em>Евгений Бойченко</em>, управляющий партнёр Клиники Рассвет и преподаватель МГУ. Разбирают кейсы: <strong>Роман Чурин</strong> — сеть МИА.РФ с оборотом более 2 млрд, <strong>Юлиана Борейша</strong> — открыла клинику в 30 лет, вышла в плюс за полгода. Плюс: где клиники прячут резервы, как работать с ОМС и ДМС и как клинические исследования дают дополнительный доход.
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-content" id="tab-hr">
+            <div class="script-box">
+              <div class="script-label manager">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                Блок: Кадровый кризис
+              </div>
+              <div class="script-text">
+                С <strong>марта 2026 года</strong> весь набор медвузов стал целевым — выпускники идут только в ОМС. На конгрессе разберут, как строить команду в новых условиях. <em>Татьяна Чуяшова</em> — председатель Комитета по кадрам НАУЗ, 15+ лет в развитии медорганизаций, клиенты: Медси, Хадасса, Репромед — расскажет систему привлечения и удержания врачей. <em>Зарема Акки</em> из Медицинского центра «Доктор Плюс» (Обнинск) — опыт региональной клиники. Плюс представитель ГК <strong>Медскан</strong>. Карьерные треки, KPI без ущерба этике, что делать, если «звёздный» врач стал источником конфликта.
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-content" id="tab-legal">
+            <div class="script-box">
+              <div class="script-label manager">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                Блок: Юридическая защита
+              </div>
+              <div class="script-text">
+                Штрафы за ЕГИСЗ — до <strong>200 тыс.</strong>, за персональные данные — до <strong>15 млн</strong>, за пациентский экстремизм — до <strong>1,5 млн</strong>. На конгрессе — три практикующих эксперта: <em>Ирина Гриценко</em> (20+ лет в судах по защите клиник и врачей), <em>Дария Вольникова</em> из N3.Health — официального оператора ЕГИСЗ, <em>Светлана Саяпина</em> — эксперт ТПП России. Разбор реальных кейсов и пошаговый план: как пройти проверки Росздравнадзора и не потерять лицензию.
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-content" id="tab-ai">
+            <div class="script-box">
+              <div class="script-label manager">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                Блок: AI-трансформация
+              </div>
+              <div class="script-text">
+                Отдельная сессия про ИИ — модератор <em>Полина Глазкова</em> из Центра здравоохранения Сколково и Института организации и информатизации здравоохранения Минздрава России. Три реальных кейса: <strong>Татьяна Чернявская</strong> (МОНИКИ) — разработали цифровую платформу, объединяющую ИИ-ассистентов для врачей и инструменты дистанционного мониторинга пациентов; <strong>Константин Иванов</strong> (Уромедик) — внедрил ИИ-сопровождение пациента с телемедициной; <strong>Алина Калиниченко</strong> (Платформа «Третье Мнение») — ИИ-поддержка врачебных решений. <em>Только реальные цифры — где экономия, а где просто модный тренд.</em>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-content" id="tab-comm">
+            <div class="script-box">
+              <div class="script-label manager">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                Блок: Конкуренция и маркетинг
+              </div>
+              <div class="script-text">
+                На конгрессе разбирают, как частные клиники делят рынок с государственными в 2026 году — и как не потерять пациента после 20:00, когда <em>60% онлайн-заявок поступает ночью</em>. Специальный SWOT-анализ сайта одного из участников прямо на сцене. Плюс — стратегические вопросы отрасли с участием <strong>Министерства здравоохранения Московской области</strong>.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── ШАГ 4 ── -->
+    <div class="section" id="step4">
+      <div class="section-header" onclick="toggleSection(this)">
+        <div class="step-badge amber">04</div>
+        <div class="section-title">
+          <h2>Ключевые аргументы</h2>
+          <p>Факты, которые усиливают любую презентацию</p>
+        </div>
+        <svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="section-body">
+        <table class="arg-table">
+          <thead>
+            <tr>
+              <th>Преимущество</th>
+              <th>Как говорить</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Врачи уходят, пациенты экономят, штрафы растут — три кризиса сразу</td>
+              <td>«Конгресс собран именно под эту ситуацию: один день — и у вас готовые решения для всех трёх проблем.»</td>
+            </tr>
+            <tr>
+              <td>Спикеры — практики из топовых и региональных клиник</td>
+              <td>«Не теория — Клиника Рассвет, МИА.РФ, Фомина, Mental Unit, Доктор Плюс из Обнинска. Те, кто уже прошли через то, с чем вы сталкиваетесь.»</td>
+            </tr>
+            <tr>
+              <td>В зале: Медскан, Клиника Рассвет и 30+ сетей клиник</td>
+              <td>«Редкая возможность сравнить свой опыт с лидерами рынка — и федеральными, и региональными — напрямую, за одним столом.»</td>
+            </tr>
+            <tr>
+              <td>8 тем: кадры, финансы, право, AI, маркетинг, ОМС/ДМС, конкуренция, кризис управления</td>
+              <td>«Комплексный апгрейд за один день — кадры, экономика, право и AI в одной программе. Не надо ехать на 5 разных конференций.»</td>
+            </tr>
+            <tr>
+              <td>Пакет «Клиника» — 2 или 3 делегата</td>
+              <td>«Можно привести команду — каждый получит то, что нужно именно его функции: финдиректор, главврач, HR.»</td>
+            </tr>
+            <tr>
+              <td>Эксперты по ЕГИСЗ, ФЗ-152, пациентскому экстремизму</td>
+              <td>«Юридический блок — реальная защита от штрафов до 15 млн, которые уже сейчас получают клиники.»</td>
+            </tr>
+            <tr>
+              <td>AI-решения с доказанной эффективностью в российской практике</td>
+              <td>«На конгрессе — только лицензированные кейсы: анализ медизображений, ИИ-поддержка врача, автоматизация документооборота. Без маркетинга — только цифры и результат.»</td>
+            </tr>
+            <tr>
+              <td>60% онлайн-заявок — после 20:00</td>
+              <td>«Клиника без онлайн-записи теряет треть потока. На конгрессе разберут, как это исправить — плюс SWOT-анализ сайта одного из участников прямо на сцене.»</td>
+            </tr>
+            <tr>
+              <td>Нетворкинг с фуршетом — спикеры по тематическим локациям</td>
+              <td>«После программы — неформальное общение со спикерами напрямую, без модератора. Многие говорят, что это самое ценное.»</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ── ШАГ 5 ── -->
+    <div class="section" id="step5">
+      <div class="section-header" onclick="toggleSection(this)">
+        <div class="step-badge amber">05</div>
+        <div class="section-title">
+          <h2>Работа с возражениями</h2>
+          <p>Готовые ответы на 5 самых частых возражений</p>
+        </div>
+        <svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="section-body">
+
+        <div class="script-box">
+          <div class="script-label objection">⚡ «Нет времени / занят»</div>
+          <div class="script-text">
+            Понимаю, у руководителей клиник время — самый дефицитный ресурс. Именно поэтому конгресс собран так, чтобы за один день дать максимум: утром — стратегия и AI, днём — финансы и кадры, вечером — живое общение с коллегами. Многие участники говорят, что это один из самых <em>«окупаемых» дней в году.</em>
+          </div>
+        </div>
+
+        <div class="script-box">
+          <div class="script-label objection">⚡ «Дорого»</div>
+          <div class="script-text">
+            Давайте посчитаем: один штраф за нарушение 152-ФЗ или ЕГИСЗ может превысить стоимость участия в <strong>10–50 раз</strong>. А один инструмент из финансового блока — например, оптимизация себестоимости или онлайн-запись 24/7 — окупает участие за первый месяц. Это не расход — это инвестиция с очень коротким ROI.
+          </div>
+        </div>
+
+        <div class="script-box">
+          <div class="script-label objection">⚡ «Уже был на похожих»</div>
+          <div class="script-text">
+            Понимаю. Но это не обзорная лекция и не реклама. Все спикеры — исключительно практики, представители отрасли частной медицины. Они выступают, чтобы <em>поделиться опытом, обозначить проблему и выстроить с участниками диалог «равный с равным»</em> — не похвалиться достижениями и ничего не продать. Плюс программа строится вокруг <strong>актуальных изменений 2026 года</strong>: новые законы, кадровая реформа с марта, свежие AI-кейсы. И разбор реальных ситуаций участников прямо на сцене — это живой диалог, а не набор слайдов.
+          </div>
+        </div>
+
+        <div class="script-box">
+          <div class="script-label objection">⚡ «Пришлите материалы, я подумаю»</div>
+          <div class="script-text">
+            Конечно, пришлю программу. Скажите — когда вам удобно связаться, чтобы ответить на вопросы? Количество мест ограничено, и ранняя регистрация даёт скидку — хотел бы успеть зафиксировать <em>место для вас до [дата].</em>
+          </div>
+        </div>
+
+        <div class="script-box">
+          <div class="script-label objection">⚡ «Нет бюджета»</div>
+          <div class="script-text">
+            Понимаю. Уточните — это принципиальная позиция или вопрос в том, чтобы обосновать руководству? Если нужно — могу подготовить <em>короткое описание ценности участия,</em> которое удобно передать для согласования. И ещё: сейчас действует <strong>ранняя цена</strong> — после [дата] стоимость вырастет. Плюс есть акция <strong>«1+1»</strong>: при регистрации двух участников от одной клиники — скидка на второй билет. Если бюджет на одного не проходит — это может быть удобным решением.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── ШАГ 6 ── -->
+    <div class="section" id="step6">
+      <div class="section-header" onclick="toggleSection(this)">
+        <div class="step-badge green">06</div>
+        <div class="section-title">
+          <h2>Закрытие сделки</h2>
+          <p>Прямое или мягкое — в зависимости от готовности</p>
+        </div>
+        <svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="section-body">
+
+        <p style="font-size:0.82rem;color:var(--muted);margin-bottom:14px">Если клиент заинтересован → прямое закрытие. Если думает → мягкое с конкретной датой.</p>
+
+        <div class="script-box">
+          <div class="script-label manager" style="background:#1A6B4A;color:#A8F0C8">
+            ✅ Прямое закрытие — клиент заинтересован
+          </div>
+          <div class="script-text">
+            Отлично! Тогда давайте зафиксирую ваше участие прямо сейчас. Сколько человек планируете — только вы или с командой? Я пришлю счёт и подтверждение <em>в течение нескольких минут.</em>
+          </div>
+        </div>
+
+        <div class="script-box">
+          <div class="script-label manager" style="background:#5B4400;color:#F4D76A">
+            ⏳ Мягкое закрытие — клиент думает
+          </div>
+          <div class="script-text">
+            Хорошо, пришлю программу на <em>[email]</em>. Давайте договоримся: я напомню вам <strong>[конкретная дата]</strong> — так вы успеете воспользоваться ранней ценой. Это вам удобно?
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── ШАГ 7 ── -->
+    <div class="section" id="step7">
+      <div class="section-header" onclick="toggleSection(this)">
+        <div class="step-badge green">07</div>
+        <div class="section-title">
+          <h2>Follow-up план</h2>
+          <p>Что делать после звонка — по дням</p>
+        </div>
+        <svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="section-body">
+        <table class="follow-table">
+          <tbody>
+            <tr>
+              <td class="day-col">День 0<br><span style="color:var(--muted);font-size:0.72rem;font-weight:400">сразу после звонка</span></td>
+              <td class="action-col">Отправить программу + ссылку <strong>clinic-forum.ru</strong> + персональное приглашение</td>
+            </tr>
+            <tr>
+              <td class="day-col">День 2–3</td>
+              <td class="action-col">Звонок или мессенджер: «Получили программу? Какая тема зацепила больше всего?»</td>
+            </tr>
+            <tr>
+              <td class="day-col">За 5 дней<br><span style="color:var(--muted);font-size:0.72rem;font-weight:400">до конца скидки</span></td>
+              <td class="action-col">Напомнить об окончании ранней цены. Уточнить — есть ли вопросы для принятия решения.</td>
+            </tr>
+            <tr>
+              <td class="day-col">За 1–2 дня<br><span style="color:var(--muted);font-size:0.72rem;font-weight:400">до события</span></td>
+              <td class="action-col">«Осталось несколько мест. Хочу убедиться, что вы не упустите возможность.»</td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="margin-top:16px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;font-size:0.82rem;color:var(--muted);line-height:1.7">
+          <span style="color:var(--label);font-weight:700;text-transform:uppercase;font-size:0.67rem;letter-spacing:0.1em">Контакты организатора</span><br>
+          📧 <a href="mailto:info@simposium-forum.ru" style="color:var(--teal);text-decoration:none">info@simposium-forum.ru</a>
+          &nbsp;&nbsp;📞 <a href="tel:+79666663691" style="color:var(--teal);text-decoration:none">+7 (966) 666-36-91</a>
+          &nbsp;&nbsp;🌐 <a href="https://clinic-forum.ru" target="_blank" style="color:var(--teal);text-decoration:none">clinic-forum.ru</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- SPEAKERS REFERENCE -->
+    <div class="section" id="speakers">
+      <div class="section-header" onclick="toggleSection(this)">
+        <div class="step-badge" style="background:var(--navy3);color:var(--teal);border:1px solid var(--teal)">i</div>
+        <div class="section-title">
+          <h2>Справка по спикерам</h2>
+          <p>Кто они, чем сильны — для разговора с клиентом</p>
+        </div>
+        <svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="section-body">
+
+        <div class="note" style="margin-bottom:20px">💡 Используйте справку, когда клиент спрашивает: «А кто там выступает?» — называйте имя, организацию и 1–2 факта. Этого достаточно для доверия.</div>
+
+        <!-- СЕССИЯ ИИ -->
+        <p style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--label);font-weight:700;margin-bottom:12px">🤖 Сессия: AI-трансформация клиники</p>
+
+        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px">
+
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+              <div>
+                <span style="font-size:0.88rem;font-weight:700;color:var(--white)">Полина Глазкова</span>
+                <span style="font-size:0.75rem;color:var(--teal);margin-left:8px">модератор сессии</span>
+              </div>
+              <span style="font-size:0.7rem;color:var(--muted);text-align:right">Сколково + ЦНИИОИЗ Минздрава</span>
+            </div>
+            <p style="font-size:0.82rem;color:var(--text);line-height:1.6;margin-bottom:6px">Руководитель исследовательского блока Центра развития здравоохранения Сколково. Эксперт Института организации и информатизации здравоохранения Минздрава России. К.м.н., 10+ лет в исследованиях медтех, кардиологии, эндокринологии.</p>
+            <div style="background:rgba(0,180,216,0.07);border-left:2px solid var(--teal);padding:6px 10px;border-radius:0 6px 6px 0;font-size:0.78rem;color:var(--muted);font-style:italic">«Она одновременно в науке и в бизнесе — знает, что реально работает в российских клиниках, а что пока только в презентациях.»</div>
+          </div>
+
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+              <span style="font-size:0.88rem;font-weight:700;color:var(--white)">Татьяна Чернявская</span>
+              <span style="font-size:0.7rem;color:var(--muted)">МОНИКИ им. Владимирского</span>
+            </div>
+            <p style="font-size:0.82rem;color:var(--text);line-height:1.6;margin-bottom:6px">Декан факультета усовершенствования врачей МОНИКИ. Врач-кардиолог, к.м.н., доцент. Её команда разработала цифровую платформу, объединяющую ИИ-ассистентов для врачей и инструменты дистанционного мониторинга пациентов.</p>
+            <div style="background:rgba(0,180,216,0.07);border-left:2px solid var(--teal);padding:6px 10px;border-radius:0 6px 6px 0;font-size:0.78rem;color:var(--muted);font-style:italic">«Это не стартап — это государственная клиника, которая уже внедрила ИИ и готова показать цифры. Реальный опыт крупной сети.»</div>
+          </div>
+
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+              <span style="font-size:0.88rem;font-weight:700;color:var(--white)">Константин Иванов</span>
+              <span style="font-size:0.7rem;color:var(--muted)">Уромедик / UrbanMedic</span>
+            </div>
+            <p style="font-size:0.82rem;color:var(--text);line-height:1.6;margin-bottom:6px">Собственник клиники «Уромедик» и основатель UrbanMedic. Автор методологии «Лечение с сопровождением» — внедрил полноценную модель ведения пациента с ИИ-инструментами и телемедициной.</p>
+            <div style="background:rgba(0,180,216,0.07);border-left:2px solid var(--teal);padding:6px 10px;border-radius:0 6px 6px 0;font-size:0.78rem;color:var(--muted);font-style:italic">«Он и собственник, и архитектор системы — расскажет не только что внедрили, но и сколько это стоило и что изменилось в деньгах.»</div>
+          </div>
+
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+              <span style="font-size:0.88rem;font-weight:700;color:var(--white)">Алина Калиниченко</span>
+              <span style="font-size:0.7rem;color:var(--muted)">Платформа «Третье Мнение»</span>
+            </div>
+            <p style="font-size:0.82rem;color:var(--text);line-height:1.6;margin-bottom:6px">Менеджер по продукту «Платформы Третье Мнение» — ИИ-система поддержки врачебных решений, которая уже работает в частных клиниках по всей России.</p>
+            <div style="background:rgba(0,180,216,0.07);border-left:2px solid var(--teal);padding:6px 10px;border-radius:0 6px 6px 0;font-size:0.78rem;color:var(--muted);font-style:italic">«Расскажет про конкретный продукт — как он встраивается в работу врача и что меняет на практике.»</div>
+          </div>
+
+        </div>
+
+        <!-- СЕССИЯ ПРАВО -->
+        <p style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--label);font-weight:700;margin-bottom:12px">⚖️ Сессия: Правовая безопасность клиники</p>
+
+        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px">
+
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+              <span style="font-size:0.88rem;font-weight:700;color:var(--white)">Ирина Гриценко</span>
+              <span style="font-size:0.7rem;color:var(--muted)">КА «Правовая политика»</span>
+            </div>
+            <p style="font-size:0.82rem;color:var(--text);line-height:1.6;margin-bottom:6px">Медицинский адвокат. Юридический психолог, преподаватель медицинского права. 20+ лет практики в судах — представляла интересы клиник и защищала врачей по уголовным делам.</p>
+            <div style="background:rgba(0,180,216,0.07);border-left:2px solid var(--teal);padding:6px 10px;border-radius:0 6px 6px 0;font-size:0.78rem;color:var(--muted);font-style:italic">«20 лет реальных судов — не теория. Она покажет на кейсах, как клиники проигрывают дела из-за ошибок в документации, и как этого избежать.»</div>
+          </div>
+
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+              <span style="font-size:0.88rem;font-weight:700;color:var(--white)">Дария Вольникова</span>
+              <span style="font-size:0.7rem;color:var(--muted)">N3.Health — официальный оператор ЕГИСЗ</span>
+            </div>
+            <p style="font-size:0.82rem;color:var(--text);line-height:1.6;margin-bottom:6px">Эксперт по организации передачи данных в ЕГИСЗ. N3.Health — платформа цифровых сервисов для частной медицины, официальный оператор государственной системы ЕГИСЗ.</p>
+            <div style="background:rgba(0,180,216,0.07);border-left:2px solid var(--teal);padding:6px 10px;border-radius:0 6px 6px 0;font-size:0.78rem;color:var(--muted);font-style:italic">«Она изнутри знает, как работает ЕГИСЗ — не из инструкций, а потому что её компания является официальным оператором системы. Из первых рук.»</div>
+          </div>
+
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+              <span style="font-size:0.88rem;font-weight:700;color:var(--white)">Светлана Саяпина</span>
+              <span style="font-size:0.7rem;color:var(--muted)">Практикующий юрист, эксперт ТПП России</span>
+            </div>
+            <p style="font-size:0.82rem;color:var(--text);line-height:1.6;margin-bottom:6px">Практикующий юрист в здравоохранении, эксперт по СМК клиник. Старший лейтенант юстиции в отставке. Преподаватель МРА, МВА. Специализированный эксперт ТПП России, эксперт Мединвест Клуба.</p>
+            <div style="background:rgba(0,180,216,0.07);border-left:2px solid var(--teal);padding:6px 10px;border-radius:0 6px 6px 0;font-size:0.78rem;color:var(--muted);font-style:italic">«Понимает и юридическую, и управленческую сторону — помогает не просто избежать штрафов, но выстроить систему менеджмента качества.»</div>
+          </div>
+
+        </div>
+
+        <!-- СЕССИЯ ФИНАНСЫ -->
+        <p style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--label);font-weight:700;margin-bottom:12px">💰 Сессия: Финансовая стратегия клиники</p>
+
+        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px">
+
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+              <span style="font-size:0.88rem;font-weight:700;color:var(--white)">Евгений Бойченко</span>
+              <span style="font-size:0.7rem;color:var(--muted)">Клиника Рассвет / МГУ EMBA</span>
+            </div>
+            <p style="font-size:0.82rem;color:var(--text);line-height:1.6;margin-bottom:6px">Управляющий партнёр Клиники Рассвет. Преподаватель Высшей школы организации и управления здравоохранением. Член экспертного совета EMBA Высшей школы бизнеса МГУ. Признанный эксперт в медицинском маркетинге — проводил мастер-классы с Филипом Котлером и Джеком Траутом.</p>
+            <div style="background:rgba(0,180,216,0.07);border-left:2px solid var(--teal);padding:6px 10px;border-radius:0 6px 6px 0;font-size:0.78rem;color:var(--muted);font-style:italic">«Рассвет — одна из самых известных клиник доказательной медицины в России. Бойченко строил её маркетинг и стратегию с нуля — знает, как привлекать и удерживать пациентов в конкурентной среде.»</div>
+          </div>
+
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+              <span style="font-size:0.88rem;font-weight:700;color:var(--white)">Роман Чурин</span>
+              <span style="font-size:0.7rem;color:var(--muted)">МИА.РФ — оборот 2+ млрд руб.</span>
+            </div>
+            <p style="font-size:0.82rem;color:var(--text);line-height:1.6;margin-bottom:6px">Собственник сети стоматологических клиник МИА.РФ — одной из самых быстрорастущих в России, оборот более 2 млрд рублей. Дважды лауреат рейтинга Startsmile 2025: 4-е место в федеральном и 1-е место в региональном рейтинге СПб. В январе 2026 выступал в Госдуме с инициативой защиты данных пациентов от парсинговых сервисов.</p>
+            <div style="background:rgba(0,180,216,0.07);border-left:2px solid var(--teal);padding:6px 10px;border-radius:0 6px 6px 0;font-size:0.78rem;color:var(--muted);font-style:italic">«Он строил сеть с нуля до 2 млрд — знает на практике, как масштабироваться без потери качества и как зарабатывать в самой конкурентной нише.»</div>
+          </div>
+
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+              <span style="font-size:0.88rem;font-weight:700;color:var(--white)">Юлиана Борейша</span>
+              <span style="font-size:0.7rem;color:var(--muted)">Клиника детской неврологии</span>
+            </div>
+            <p style="font-size:0.82rem;color:var(--text);line-height:1.6;margin-bottom:6px">Врач-невролог, соучредитель и исполнительный директор Клиники детской неврологии доктора Борейша. В 30 лет открыла клинику, через полгода вышла на самоокупаемость. Сегодня — одна из ведущих клиник России по реабилитации детей с речевыми нарушениями. Лауреат премии «Россия — страна возможностей» в номинации «Предпринимательство». Отзыв с прошлого конгресса: «Потрясающие спикеры — активные, эмоционально вовлечённые практики! Никакой ненужной "научки" — всё только по делу.»</p>
+            <div style="background:rgba(0,180,216,0.07);border-left:2px solid var(--teal);padding:6px 10px;border-radius:0 6px 6px 0;font-size:0.78rem;color:var(--muted);font-style:italic">«История про малую клинику, которая за полгода вышла в плюс — это про тех, кто только открылся или застрял в убытках. Очень конкретный и вдохновляющий кейс.»</div>
+          </div>
+
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+              <span style="font-size:0.88rem;font-weight:700;color:var(--white)">Александр Окунев</span>
+              <span style="font-size:0.7rem;color:var(--muted)">Mental Unit — 15 центров клинических исследований</span>
+            </div>
+            <p style="font-size:0.82rem;color:var(--text);line-height:1.6;margin-bottom:6px">Основатель и генеральный директор Mental Unit — клиники доказательной психиатрии и психотерапии в Санкт-Петербурге. Клиника включает 15 центров клинических исследований. Выстроил модель, где соматические и ментальные врачи работают в одной команде.</p>
+            <div style="background:rgba(0,180,216,0.07);border-left:2px solid var(--teal);padding:6px 10px;border-radius:0 6px 6px 0;font-size:0.78rem;color:var(--muted);font-style:italic">«Покажет, как клинические исследования превращаются в дополнительный источник прибыли — не теоретически, а на живом примере 15 центров.»</div>
+          </div>
+
+        </div>
+
+        <!-- СЕССИЯ КАДРЫ -->
+        <p style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--label);font-weight:700;margin-bottom:12px">👥 Сессия: Кадры</p>
+
+        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:24px">
+
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+              <span style="font-size:0.88rem;font-weight:700;color:var(--white)">Татьяна Чуяшова</span>
+              <span style="font-size:0.7rem;color:var(--muted)">НАУЗ, ЕБРР, Медси, Хадасса</span>
+            </div>
+            <p style="font-size:0.82rem;color:var(--text);line-height:1.6;margin-bottom:6px">Председатель Комитета по кадрам НАУЗ. Бизнес-тренер, бизнес-психолог, сертифицированный коуч ICU, консультант по управлению ЕБРР. 15+ лет в развитии медицинских организаций. Среди клиентов: Медси, Хадасса, Репромед, КДЛ.</p>
+            <div style="background:rgba(0,180,216,0.07);border-left:2px solid var(--teal);padding:6px 10px;border-radius:0 6px 6px 0;font-size:0.78rem;color:var(--muted);font-style:italic">«Если клиент говорит про кадры — это имя работает безотказно: ЕБРР, Медси, Хадасса — серьёзный уровень клиентов. Консультирует тех, у кого уже есть деньги на системные решения.»</div>
+          </div>
+
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+              <span style="font-size:0.88rem;font-weight:700;color:var(--white)">Анастасия Иванова</span>
+              <span style="font-size:0.7rem;color:var(--muted)">Клиника Фомина</span>
+            </div>
+            <p style="font-size:0.82rem;color:var(--text);line-height:1.6;margin-bottom:6px">Исполнительный директор сети «Клиника Фомина». Юрист, управленец и стратег — отвечает за операционное управление, масштабирование и повышение эффективности бизнес-процессов одной из крупнейших сетей частных клиник России.</p>
+            <div style="background:rgba(0,180,216,0.07);border-left:2px solid var(--teal);padding:6px 10px;border-radius:0 6px 6px 0;font-size:0.78rem;color:var(--muted);font-style:italic">«Клиника Фомина — один из самых узнаваемых брендов частной медицины. Она расскажет, как выстроить систему найма и удержания, которая работает в масштабе десятков клиник.»</div>
+          </div>
+
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+              <span style="font-size:0.88rem;font-weight:700;color:var(--white)">Зарема Акки</span>
+              <span style="font-size:0.7rem;color:var(--muted)">МЦ «Доктор Плюс», Обнинск</span>
+            </div>
+            <p style="font-size:0.82rem;color:var(--text);line-height:1.6;margin-bottom:6px">Главный врач Медицинского центра «Доктор Плюс» (Обнинск). Врач-анестезиолог-реаниматолог высшей категории, специалист по организации здравоохранения, 20+ лет опыта. Голос региональной клиники — как решать кадровые задачи не в Москве.</p>
+            <div style="background:rgba(0,180,216,0.07);border-left:2px solid var(--teal);padding:6px 10px;border-radius:0 6px 6px 0;font-size:0.78rem;color:var(--muted);font-style:italic">«Для региональных клиентов — идеальный пример: не Москва, не огромный бюджет, а реальные инструменты найма в условиях кадрового дефицита на местах.»</div>
+          </div>
+
+        </div>
+
+        <!-- ОТЗЫВЫ -->
+        <p style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--label);font-weight:700;margin-bottom:12px">⭐ Что говорят участники прошлых конгрессов</p>
+
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px">
+            <p style="font-size:0.82rem;color:var(--text);line-height:1.6;font-style:italic;margin-bottom:6px">«Всегда получаю невероятную радость и пользу. Все кто здесь собирается — очень прокаченные специалисты, задают глубокие вопросы. Я не только делюсь опытом как спикер, но и многому учусь сама.»</p>
+            <span style="font-size:0.75rem;color:var(--teal);font-weight:600">Юлия Гладкая, основатель Высшей школы врачей и клиник</span>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px">
+            <p style="font-size:0.82rem;color:var(--text);line-height:1.6;font-style:italic;margin-bottom:6px">«Особо понравилось, что затрагивается весь цикл вопросов клиники — и как работать с пациентами, и как мотивировать врачей, и какие показатели отслеживать. Очень много инсайтов получила.»</p>
+            <span style="font-size:0.75rem;color:var(--teal);font-weight:600">Светлана Кугай, финансист, бизнес-консультант</span>
+          </div>
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px">
+            <p style="font-size:0.82rem;color:var(--text);line-height:1.6;font-style:italic;margin-bottom:6px">«Очень много важной полезной информации. Спикеры старались дать максимум знаний за своё выступление. Каждый семинар был очень полезным.»</p>
+            <span style="font-size:0.75rem;color:var(--teal);font-weight:600">Марина Колесник, управляющая клиники «Зрение Нева»</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- TECH COMPANY SCRIPT -->
+    <div class="section" id="tech-script" style="border-color:rgba(72,202,178,0.4)">
+      <div class="section-header" onclick="toggleSection(this)" style="background:rgba(72,202,178,0.06)">
+        <div class="step-badge" style="background:var(--green);color:var(--navy)">★</div>
+        <div class="section-title">
+          <h2 style="color:var(--green)">Скрипт: Техническая компания</h2>
+          <p>Клиент ищет закупщиков оборудования — уже отказывался, дожим со скидкой 30%</p>
+        </div>
+        <svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="section-body">
+
+        <div class="goal-tag" style="background:rgba(72,202,178,0.12);border-color:rgba(72,202,178,0.4);color:var(--green)">Контекст</div>
+        <p style="font-size:0.86rem;color:var(--muted);margin-bottom:16px">Клиент — не клиника. Продаёт медицинское оборудование, ищет выход на закупщиков. Уже слышал цену, отказался. Цель звонка — закрыть со скидкой 30%, показать что альтернатив нет.</p>
+
+        <!-- ШАГ 1: ОТКРЫТИЕ -->
+        <p style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--label);font-weight:700;margin-bottom:8px">1. Открытие — вернуться к разговору</p>
+        <div class="script-box">
+          <div class="script-label manager">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            [Имя менеджера]
+          </div>
+          <div class="script-text">
+            <em>[Имя]</em>, добрый день! Это <em>[Имя менеджера]</em>, конгресс «Управление частной клиникой». Мы с вами уже обсуждали участие — хочу вернуться к этому разговору с конкретным предложением. Уделите буквально две минуты?
+          </div>
+        </div>
+
+        <div class="script-box" style="margin-top:8px">
+          <div class="script-label pause">⏸ Пауза — ждём ответа</div>
+        </div>
+
+        <!-- ШАГ 2: АЛЬТЕРНАТИВЫ -->
+        <p style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--label);font-weight:700;margin:16px 0 8px">2. Показать — альтернатив нет</p>
+        <div class="script-box">
+          <div class="script-label manager">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            [Имя менеджера]
+          </div>
+          <div class="script-text">
+            Понимаю, что цена может быть для вас высокой. Позвольте обозначить ключевой момент: где ещё можно встретиться с руководителями частных клиник — собственниками, главврачами, финдиректорами — в одном месте за один день?<br><br>
+            «Управление медбизнесом в России» — <strong>февраль, уже прошла.</strong> Онлайн-конференции — нет живого контакта и кулуаров. Региональные мероприятия — аудитория несопоставима.<br><br>
+            Наш конгресс — это <em>30+ клиник в одном зале</em>. Люди, которые принимают решения о закупках. Часть этих решений принимается именно в кулуарах, за обедом. <strong>Следующий раз — только через год.</strong>
+            «Управление медбизнесом в России» — <strong>февраль, уже прошла.</strong> Онлайн-конференции — там нет живого контакта и кулуаров. Региональные мероприятия — аудитория несопоставима.<br><br>
+            Наш конгресс — это <em>30+ клиник в одном зале</em>: собственники, главврачи, финдиректора. Люди, которые принимают решения о закупках. И часть этих решений принимается именно в кулуарах, за обедом — не в переговорных. <strong>Следующий раз — только через год.</strong>
+          </div>
+        </div>
+
+        <!-- ШАГ 3: ФИНАЛЬНОЕ ПРЕДЛОЖЕНИЕ -->
+        <p style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--label);font-weight:700;margin:16px 0 8px">3. Финальное предложение — скидка 30%</p>
+        <div class="script-box">
+          <div class="script-label manager">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            [Имя менеджера]
+          </div>
+          <div class="script-text">
+            Именно поэтому подготовила для вас индивидуальное предложение: скидка 30% — <strong>[итоговая цена]</strong> вместо <strong>[начальная цена]</strong>, действует до <strong>[дата]</strong>. Один контракт с клиникой — и участие окупается.
+          </div>
+        </div>
+
+        <div class="script-box" style="margin-top:8px">
+          <div class="script-label pause">⏸ Пауза — молчим, ждём реакции</div>
+        </div>
+
+        <!-- ШАГ 4: ЕСЛИ СНОВА ДУМАЕТ -->
+        <p style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--label);font-weight:700;margin:16px 0 8px">4. Если снова «подумаю» — дедлайн</p>
+        <div class="script-box">
+          <div class="script-label manager">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            [Имя менеджера]
+          </div>
+          <div class="script-text">
+            Понимаю. Но эта скидка действует только до <strong>[дата]</strong> — потом я физически не смогу её согласовать. Если в принципе интерес есть — давайте зафиксируем место сейчас, счёт выставлю сегодня.
+          </div>
+        </div>
+
+        <!-- ШАГ 5: ЕСЛИ ОТКАЗ ОКОНЧАТЕЛЬНЫЙ -->
+        <p style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--label);font-weight:700;margin:16px 0 8px">5. Если окончательный отказ — оставить дверь открытой</p>
+        <div class="script-box">
+          <div class="script-label manager">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            [Имя менеджера]
+          </div>
+          <div class="script-text">
+            Хорошо, понял вас. Тогда держите нас в виду — в следующем году конгресс снова пройдёт, и мы заранее дадим знать. Если до <strong>[дата]</strong> что-то изменится — напишите, постараюсь помочь.
+          </div>
+        </div>
+
+        <div class="note" style="margin-top:14px;border-left-color:var(--green)">
+          💡 <strong style="color:var(--green)">Главный аргумент:</strong> не цена участия, а стоимость упущенной возможности. Один контракт на оборудование = многократный ROI. Следующий шанс встретить эту аудиторию живьём — через год.
+        </div>
+
+      </div>
+    </div>
+
+    <!-- PARTNER SCRIPT -->
+    <div class="section" id="partner-script" style="border-color:rgba(244,162,97,0.4)">
+      <div class="section-header" onclick="toggleSection(this)" style="background:rgba(244,162,97,0.06)">
+        <div class="step-badge amber">♦</div>
+        <div class="section-title">
+          <h2 style="color:var(--amber)">Скрипт: Партнёры</h2>
+          <p>Поставщики оборудования, ПО и услуг для клиник — продвижение через конгресс</p>
+        </div>
+        <svg class="chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="section-body">
+
+        <div class="goal-tag" style="background:rgba(244,162,97,0.12);border-color:rgba(244,162,97,0.4);color:var(--amber)">Контекст</div>
+        <p style="font-size:0.86rem;color:var(--muted);margin-bottom:16px">Клиент — компания, которая продаёт товары или услуги клиникам: оборудование, ПО, расходники, сервисы. Цель — показать конгресс как канал выхода на 30+ ЛПР в одном зале и предложить подходящий формат присутствия.</p>
+
+        <!-- ШАГ 1 -->
+        <p style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--label);font-weight:700;margin-bottom:8px">1. Открытие — позиционирование</p>
+        <div class="script-box">
+          <div class="script-label manager">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            [Имя менеджера]
+          </div>
+          <div class="script-text">
+            <em>[Имя]</em>, добрый день! Меня зовут <em>[Имя менеджера]</em>, конгресс «Управление частной клиникой в России», 26 июня, Москва. Мы собираем на одной площадке <strong>руководителей частных клиник</strong> — собственников, главврачей, финдиректоров. Хочу рассказать, как ваша компания может получить к ним прямой доступ в рамках нашего события. Удобно пару минут?
+          </div>
+        </div>
+
+        <!-- ШАГ 2 -->
+        <p style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--label);font-weight:700;margin:16px 0 8px">2. Аргумент — почему именно здесь</p>
+        <div class="script-box">
+          <div class="script-label manager">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            [Имя менеджера]
+          </div>
+          <div class="script-text">
+            На конгрессе — <em>30+ клиник</em>: Медскан, Клиника Рассвет, МИА.РФ, Mental Unit, региональные центры. Это люди, которые принимают решения о закупках. В программе — финансы, кадры, IT, юридические риски. Ваша аудитория будет в зале весь день — и в перерывах, и за обедом, и на вечернем нетворкинге. <strong>Один день — и вы перед 30+ ЛПР.</strong>
+          </div>
+        </div>
+
+        <!-- ШАГ 3 — ФОРМАТЫ -->
+        <p style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--label);font-weight:700;margin:16px 0 8px">3. Форматы присутствия — выбираем под задачу</p>
+
+        <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:4px">
+
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden">
+            <div style="display:grid;grid-template-columns:1fr auto;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line)">
+              <div>
+                <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--amber);font-weight:700;margin-bottom:3px">Промо-место</div>
+                <div style="font-size:0.84rem;color:var(--text)">Стол, стул, рекламный плакат + аккредитация промоутера. Живой контакт с участниками в перерывах</div>
+              </div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--amber);margin-left:16px;white-space:nowrap">73 500 ₽</div>
+            </div>
+            <div style="padding:10px 16px;font-size:0.8rem;color:var(--muted);font-style:italic">«Ваш представитель будет прямо в зале — сможет познакомиться лично с каждым, кто проходит мимо в перерыве.»</div>
+          </div>
+
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden">
+            <div style="display:grid;grid-template-columns:1fr auto;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line)">
+              <div>
+                <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--amber);font-weight:700;margin-bottom:3px">Рекламный плакат</div>
+                <div style="font-size:0.84rem;color:var(--text)">Размещение брендированного плаката в зоне видимости участников весь день</div>
+              </div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--amber);margin-left:16px;white-space:nowrap">63 000 ₽</div>
+            </div>
+            <div style="padding:10px 16px;font-size:0.8rem;color:var(--muted);font-style:italic">«Бренд перед глазами 30+ руководителей клиник весь день — без промоутера, если нужен тихий формат.»</div>
+          </div>
+
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden">
+            <div style="display:grid;grid-template-columns:1fr auto;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line)">
+              <div>
+                <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--amber);font-weight:700;margin-bottom:3px">Промо-ролик</div>
+                <div style="font-size:0.84rem;color:var(--text)">Показ видео до 45 секунд во время перерыва — на весь экран, перед всем залом</div>
+              </div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--amber);margin-left:16px;white-space:nowrap">52 500 ₽</div>
+            </div>
+            <div style="padding:10px 16px;font-size:0.8rem;color:var(--muted);font-style:italic">«45 секунд на большом экране — перед аудиторией, которая только что слушала про ваши темы. Максимальный контекст.»</div>
+          </div>
+
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden">
+            <div style="display:grid;grid-template-columns:1fr auto;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line)">
+              <div>
+                <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--amber);font-weight:700;margin-bottom:3px">Вложение в пакет участника</div>
+                <div style="font-size:0.84rem;color:var(--text)">Ваши рекламные материалы (1 SKU) в пакете каждого делегата</div>
+              </div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--amber);margin-left:16px;white-space:nowrap">47 250 ₽</div>
+            </div>
+            <div style="padding:10px 16px;font-size:0.8rem;color:var(--muted);font-style:italic">«Буклет, флаер, сувенир — в руках у каждого участника. Берут домой, показывают коллегам.»</div>
+          </div>
+
+          <div style="background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden">
+            <div style="display:grid;grid-template-columns:1fr auto;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line)">
+              <div>
+                <div style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--amber);font-weight:700;margin-bottom:3px">Реклама в рабочей тетради</div>
+                <div style="font-size:0.84rem;color:var(--text)">Размещение рекламы в печатной рабочей тетради форума — участники пользуются ею весь день</div>
+              </div>
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;color:var(--amber);margin-left:16px;white-space:nowrap">21 000 ₽</div>
+            </div>
+            <div style="padding:10px 16px;font-size:0.8rem;color:var(--muted);font-style:italic">«Самый доступный формат. Тетрадь лежит перед каждым участником весь день.»</div>
+          </div>
+
+        </div>
+
+        <!-- ШАГ 4 — КОМБО -->
+        <p style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--label);font-weight:700;margin:16px 0 8px">4. Если хочет максимум — комбо-пакет</p>
+        <div class="script-box">
+          <div class="script-label manager">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            [Имя менеджера]
+          </div>
+          <div class="script-text">
+            Если хотите закрыть максимум касаний за один день — можно взять несколько форматов вместе. Например: <em>промо-место + ролик + вложение в пакет</em>. Это <strong>три точки контакта</strong>: видите до мероприятия, видят во время перерыва, уносят домой. Давайте посчитаем, что подойдёт под ваши задачи?
+          </div>
+        </div>
+
+        <!-- ШАГ 5 — ВОЗРАЖЕНИЕ ЦЕНА -->
+        <p style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--label);font-weight:700;margin:16px 0 8px">5. Возражение «дорого» — считаем ROI</p>
+        <div class="script-box">
+          <div class="script-label objection">⚡ «Дорого для нас»</div>
+          <div class="script-text">
+            Давайте считать: реклама в рабочей тетради — <strong>21 000 ₽</strong>. Это охват 30+ руководителей клиник, которые принимают решения о закупках. Один договор с клиникой на ваш продукт — и формат окупается. Если бюджет ограничен — начнём с малого и посмотрим на результат.
+          </div>
+        </div>
+
+        <!-- ШАГ 6 — ВОЗРАЖЕНИЕ "НЕ НАША АУДИТОРИЯ" -->
+        <p style="font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--label);font-weight:700;margin:16px 0 8px">6. Возражение «не уверен, что наша аудитория»</p>
+        <div class="script-box">
+          <div class="script-label objection">⚡ «Мы не знаем, подходит ли нам»</div>
+          <div class="script-text">
+            Подскажите — с какими клиниками вы сейчас работаете или хотите работать? Если ваши клиенты — это частные медицинские центры, главврачи или финдиректора клиник — то именно они будут в зале. <em>Медскан, Клиника Рассвет, МИА.РФ, Mental Unit</em> и ещё 30+ клиник. Давайте я пришлю список участников прошлых конгрессов?
+          </div>
+        </div>
+
+        <div class="note" style="margin-top:14px;border-left-color:var(--amber)">
+          💡 <strong style="color:var(--amber)">Главный аргумент для партнёра:</strong> не стоимость размещения, а стоимость самостоятельного выхода на эту аудиторию — холодные звонки, выставки, командировки. Здесь все ЛПР в одном месте, один день, без лишних затрат.
+        </div>
+
+      </div>
+    </div>
+
+    <!-- CHEAT SHEET -->
+    <div class="cheat-section" id="cheat">
+      <div class="cheat-title">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/><polyline points="13 2 13 9 20 9"/></svg>
+        Быстрая шпаргалка — главные цифры
+      </div>
+      <ul class="cheat-list">
+        <li class="cheat-item">Дата и место: <strong>26 июня 2026, Москва, Гостиница Ленинградская</strong></li>
+        <li class="cheat-item">Три главных боли рынка: <strong>врачи уходят, пациенты экономят, штрафы растут</strong> — конгресс даёт решения для всех трёх</li>
+        <li class="cheat-item">С <strong>марта 2026</strong> бюджетных выпускников медвузов на частном рынке нет — весь набор целевой, идут в ОМС</li>
+        <li class="cheat-item">Штрафы за ЕГИСЗ — до <strong>200 тыс.</strong>, за ПДн — до <strong>15 млн</strong>, за пациентский экстремизм — до <strong>1,5 млн</strong></li>
+        <li class="cheat-item"><strong>60% онлайн-заявок</strong> поступают после 20:00 — клиника без онлайн-записи теряет треть потока</li>
+        <li class="cheat-item">ФОТ уже съедает <strong>50% себестоимости</strong> — цель: рентабельность <strong>15–20%</strong></li>
+        <li class="cheat-item">ИИ уже внедрён в <strong>МОНИКИ, Уромедик</strong> и в частных клиниках, работающих на платформе <strong>«Третье Мнение»</strong> — на конгрессе только реальные кейсы с цифрами</li>
+        <li class="cheat-item">В зале: <strong>Медскан, Рассвет, МИА.РФ, Mental Unit, Доктор Плюс</strong> и 30+ клиник — можно прийти с командой (пакет на 2–3 делегата)</li>
+      </ul>
+    </div>
+
+  </main>
+</div>
+
+<script>
+  function toggleSection(header) {
+    const body = header.nextElementSibling;
+    const chevron = header.querySelector('.chevron');
+    const isOpen = body.classList.contains('open');
+    body.classList.toggle('open', !isOpen);
+    header.classList.toggle('open', !isOpen);
+    chevron.classList.toggle('open', !isOpen);
+  }
+
+  function switchTab(btn, tabId) {
+    const nav = btn.closest('.tab-nav');
+    const tabs = btn.closest('.tabs');
+    nav.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    tabs.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(tabId).classList.add('active');
+  }
+
+  // Sidebar active state on scroll
+  const sections = document.querySelectorAll('.section');
+  const navItems = document.querySelectorAll('.nav-item[data-section]');
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navItems.forEach(item => {
+          item.classList.toggle('active', item.dataset.section === id);
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -60% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+
+  // Open first section by default (already open in HTML)
+</script>
+</body>
+</html>
